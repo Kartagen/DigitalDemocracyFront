@@ -1,0 +1,31 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: rgb(17 24 39);
+    width: 100%;
+}
+
+.logo label {
+    text-decoration: none;
+    font-size: 46px;
+    font-weight: bold;
+    color: darkkhaki;
+    cursor: pointer;
+}
+
+.tabs label {
+    margin-left: 10px;
+    color: gray;
+    font-size: 30px;
+    cursor: pointer;
+    padding: 20px;
+}
+.tabs label:hover {
+    color: darkslategrey;
+}
+.tabs label.active {
+    color: wheat;
+    font-weight: bold;
+}
