@@ -24,7 +24,7 @@ function Login() {
     }
 
     return (
-        <div style={{minHeight: 944}} className="flex flex-col justify-center bg-gray-900">
+        <div style={{minHeight: 944}} className="flex flex-col justify-start bg-gray-900">
             <Header activeTab={"registration"}/>
             <div id="main" className="bg-gray-900 h-full flex flex-1 flex-col justify-center">
                 <div className="sm:mx-auto sm:w-full sm:max-w-sm text-white">
