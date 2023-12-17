@@ -5,16 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="27ec60d1-e888-4dfb-8a94-ffddd7e02544" name="Changes" comment="vote done, filtration done">
-      <change afterPath="$PROJECT_DIR$/components/electionInList/electionInList.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/interfaces/Election.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/interfaces/candidate.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/interfaces/userData.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pages/elections/[id].tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/electionResult/electionResult.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/interfaces/electionResult.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/header/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/header/Header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/propdownWithSearch/DropdownWithSearch.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/dropdownWithSearch/DropdownWithSearch.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/administration.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/administration.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/candidates.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/active.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/elections.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/elections.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/results.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/results.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,8 +27,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="CSS File" />
-        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -84,7 +86,8 @@
       <workItem from="1702652630030" duration="74000" />
       <workItem from="1702653050638" duration="699000" />
       <workItem from="1702653811142" duration="4758000" />
-      <workItem from="1702728623995" duration="17771000" />
+      <workItem from="1702728623995" duration="17796000" />
+      <workItem from="1702807096627" duration="16795000" />
     </task>
     <task id="LOCAL-00001" summary="initial release, registration/login done, elections in work">
       <created>1702658993087</created>
@@ -100,7 +103,14 @@
       <option name="project" value="LOCAL" />
       <updated>1702659078691</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="vote done, filtration done">
+      <created>1702748026136</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1702748026136</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

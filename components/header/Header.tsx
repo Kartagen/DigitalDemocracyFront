@@ -12,7 +12,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ activeTab }) => {
     const[userData,setUserData] = useState<UserData|undefined>(undefined)
     const[userGreetings,setUserGreetings] = useState<string>("")
-    const GetUserData = () =>{
+    const getUserData = () =>{
         let jwt = localStorage["jwt"];
         if(!jwt) return undefined
         axios.get("http://localhost:5000/vote_process/verify",
@@ -34,7 +34,7 @@ const Header: React.FC<HeaderProps> = ({ activeTab }) => {
         setUserGreetings(`Hello ${userData?.name+" "+userData?.surname}`)
     }
     useEffect(() => {
-        GetUserData();
+        getUserData();
     },[])
     return (
         <div className={styles.header}>
@@ -44,18 +44,19 @@ const Header: React.FC<HeaderProps> = ({ activeTab }) => {
                 </Link>
             </div>
             <div className={styles.tabs}>
+                <Link href="/active">
+                    <label className={activeTab === 'active' ? styles.active : ''}>Active Elections</label>
+                </Link>
                 <Link href="/elections">
                     <label className={activeTab === 'elections' ? styles.active : ''}>Elections</label>
                 </Link>
                 <Link href="/results">
                     <label className={activeTab === 'results' ? styles.active : ''}>Results</label>
                 </Link>
-                <Link href="/candidates">
-                    <label className={activeTab === 'candidates' ? styles.active : ''}>Candidates</label>
-                </Link>{}
+                {(userData?.role=="admin"||userData?.role=="staff")&&
                 <Link href="/administration">
                     <label className={activeTab === 'administration' ? styles.active : ''}>Administration</label>
-                </Link>
+                </Link>}
                 {userData==undefined&&
                 <Link href="/login">
                     <label className={activeTab === 'registration' ? styles.active : ''}>Authorization</label>

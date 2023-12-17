@@ -1,5 +1,5 @@
 import Header from "@/components/header/Header";
-import DropdownWithSearch from "@/components/propdownWithSearch/DropdownWithSearch";
+import DropdownWithSearch from "@/components/dropdownWithSearch/DropdownWithSearch";
 import {useEffect, useState} from "react";
 import ElectionInList from "@/components/electionInList/electionInList";
 import {Election} from "@/components/interfaces/Election";
@@ -62,9 +62,6 @@ export default function Elections() {
     useEffect(()=>{
         loadFilterOptions()
     },[electionsResp])
-    useEffect(()=>{
-        console.log(filter)
-    },[filter])
     return (
         <main className="flex min-h-screen flex-col bg-slate-800 items-center justify-start">
             <Header activeTab={"elections"}/>
@@ -93,7 +90,7 @@ export default function Elections() {
                         <div className="text-2xl mb-2">City</div>
                         <DropdownWithSearch onSelect={(e) => setFilter((filter) => ({ ...filter, city: e}))} options={cities}/>
                     </div>
-                    <button onClick={filterElections} className={"border-amber-800 h-16 rounded-2xl self-center w-56 border-2 bg-neutral-800"}>Search</button>
+                    <button onClick={filterElections} className={"border-amber-800 rounded-2xl self-center px-10 py-4 text-3xl border-2 bg-neutral-800"}>Search</button>
                 </div>
                 <div className="bg-slate-950 w-full">
                     {electionsFiltered.map((election)=>(
