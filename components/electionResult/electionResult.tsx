@@ -2,11 +2,27 @@ import React, {useEffect,useRef, useState} from "react";
 import { useReactToPrint } from 'react-to-print';
 import {Election} from "@/components/interfaces/Election";
 import axios from "axios";
+import {toast, ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ElectionResult = (election: Election) => {
     const componentRef = useRef(null);
     const [electionResult, setElectionResult] = useState<ElectionRes>()
     const [isAvailable, setIsAvailable] = useState(false)
+    //функція для переведення дати з бд у дату, зрозумілу користувачу
+    const formatDate=(date:string)=>{
+        const options: Intl.DateTimeFormatOptions = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            timeZoneName: 'short',
+        };
+        const userFriendlyDate = new Date(date).toLocaleDateString('en-US', options);
+        return userFriendlyDate;
+    }
     const loadElections = () => {
         axios.get("http://localhost:5000/vote/result/" + election._id).then(res => {
             setElectionResult(res.data)
@@ -14,10 +30,16 @@ const ElectionResult = (election: Election) => {
         }).catch((err) => {
         })
     }
+    //функція збереження результату виборів чи його роздруковування
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
     });
+    //функція для знаходження переможця виборів
     const candidateWithMaxVotes = electionResult?.info.reduce((prevCandidate, currentCandidate) => {
+        if (prevCandidate.votes == currentCandidate.votes && electionResult?.info.length!=1) {
+            let res:CandidateRes = {surname:"", name: "Перевибори", votes: prevCandidate.votes, aboutCandidate:"", id:"-1"}
+            return res;
+        }
         return prevCandidate.votes > currentCandidate.votes ? prevCandidate : currentCandidate;
     }, electionResult.info[0]);
     useEffect(() => {
@@ -28,10 +50,11 @@ const ElectionResult = (election: Election) => {
             {isAvailable &&
                 <div ref={componentRef}
                     className={"flex bg-slate-700 m-10 rounded-2xl flex-col space-y-2 items-start p-10 text-xl"}>
+                    <ToastContainer/>
                     <div className={"flex flex-col space-y-1"}>
                         <div className="text-5xl">{election.name}</div>
-                        <div>Start: {election.beginning}</div>
-                        <div>End: {election.end}</div>
+                        <div>Start: {formatDate(election.beginning)}</div>
+                        <div>End: {formatDate(election.end)}</div>
                         <div>Type: {election.type}</div>
                         {election.city != undefined &&
                             <div>City: {election.city}</div>}
@@ -53,7 +76,7 @@ const ElectionResult = (election: Election) => {
                                             backgroundColor: '#4CAF50',
                                             borderRadius: '4px',
                                             padding: 1
-                                        }}>{cand.votes / electionResult?.count * 100}%
+                                        }}>{(cand.votes / electionResult?.count * 100).toFixed(2)}%
                                         </div>
                                     </div>
                                 </div>

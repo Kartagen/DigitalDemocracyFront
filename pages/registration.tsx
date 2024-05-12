@@ -4,6 +4,8 @@ import Header from "@/components/header/Header";
 import "./globals.css"
 import {useRouter} from "next/router";
 import Link from 'next/link';
+import {toast, ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Registration() {
     const router = useRouter();
@@ -18,18 +20,27 @@ function Registration() {
     const [error1, setError1] = useState("")
     const [error2, setError2] = useState("")
 
-    function Reg() {
+    function registrationRequest() {
         axios.post("http://localhost:5000/auth/registration", {
             email: email,
             passportNumber: passport,
             password: pas1
         }).then(() => {
             router.push("/login")
+        }).catch(err=>{
+            switch (err.response.status){
+                case 402:toast.error("User already registered.")
+                case 400:toast.error("User must be at least 18 years old")
+                case 403:toast.error("Email is already in use.")
+                case 404:toast.error("Passport not found in database.")
+                case 500:toast.error("Server is down, try later.")
+            }
         })
     }
 
     return (
         <div style={{minHeight:944}} className="flex flex-col justify-center bg-gray-900">
+            <ToastContainer/>
             <Header activeTab={"registration"}/>
             <div id="main" className="bg-gray-900 h-full flex flex-1 flex-col justify-center">
                 <div className="sm:mx-auto sm:w-full sm:max-w-sm text-white">
@@ -41,7 +52,7 @@ function Registration() {
                 <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
                     <form className="space-y-4" action="#" method="POST" onSubmit={(e) => {
                         e.preventDefault();
-                        Reg()
+                        registrationRequest()
                     }}>
                         <div>
                             <label htmlFor="passport" className="block text-xl font-medium text-white">

@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../DigitalDemocracy/.idea/DigitalDemocracy.iml" filepath="$PROJECT_DIR$/../DigitalDemocracy/.idea/DigitalDemocracy.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/digital_democracy_front.iml" filepath="$PROJECT_DIR$/.idea/digital_democracy_front.iml" />
     </modules>
   </component>

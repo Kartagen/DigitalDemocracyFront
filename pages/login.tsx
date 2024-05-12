@@ -108,7 +108,13 @@ function Login() {
 
                     <p className="mt-10 mb-5 text-center text-sm text-gray-500">
                         Don`t have account?
-                        <Link href="/registration" className="font-semibold text-l text-indigo-600 hover:text-indigo-500"> Register!</Link>
+                        <Link href="/registration"
+                              className="font-semibold text-l text-indigo-600 hover:text-indigo-500"> Register!</Link>
+                    </p>
+                    <p className="mt-10 mb-5 text-center text-sm text-gray-500">
+                        Forgot password?
+                        <Link href="/recovery"
+                              className="font-semibold text-l text-indigo-600 hover:text-indigo-500"> Recovery!</Link>
                     </p>
                 </div>
             </div>

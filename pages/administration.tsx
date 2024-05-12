@@ -15,7 +15,9 @@ export default function Administration() {
     const [passportQr, setPassportQr] = useState("");
     const [responseQr, setResponseQr] = useState("");
     const [jwt, setJwt] = useState("");
+    const [role, setRole] = useState("");
     const [isOpenQr, setIsOpenQr] = useState(false);
+    const [isOpenRole, setIsOpenRole] = useState(false);
     const [isCandidate, setIsCandidate] = useState(false);
     const [isVote, setIsVote] = useState(false);
     const [isOther, setIsOther] = useState(false);
@@ -86,6 +88,21 @@ export default function Administration() {
     const handleAddCandidateToVote = () => {
         if (voteEditCandidates.indexOf(candidateEdit) == -1)
             setVoteEditCandidates(voteEditCandidates => voteEditCandidates.concat(candidateEdit))
+    }
+    const handleChangeRole=()=>{
+        axios.post("http://localhost:5000/staff/changeRole/",
+            {
+                passportNumber:passportQr,
+                newRole:role
+            },
+            {headers: {Authorization: "Bearer " + jwt}},
+        ).then(res => {
+            toast.success(res.data.message, {
+                position: toast.POSITION.TOP_RIGHT,
+            });
+        }).catch(err => {
+            toast.error(err.response.data.message)
+        })
     }
     const handleAddVote = () => {
         let req;
@@ -254,7 +271,10 @@ export default function Administration() {
     }
     const getUserData = () => {
         let jwt = localStorage["jwt"];
-        if (!jwt) return undefined
+        if (!jwt) {
+            router.push("/")
+            return
+        }
         setJwt(jwt);
         axios.get("http://localhost:5000/vote_process/verify",
             {headers: {Authorization: "Bearer " + jwt}}
@@ -286,7 +306,7 @@ export default function Administration() {
             <Header activeTab={"administration"}/>
             <ToastContainer/>
             <div className={"text-5xl p-20"}>Admin Panel</div>
-            <div className={"flex rounded-xl text-2xl border-2 border-amber-800 px-10 py-4 flex-col"}>
+            <div className={"flex rounded-xl w-96 text-center text-2xl border-2 border-amber-800 px-10 py-4 flex-col"}>
                 <div className={"cursor-pointer"} onClick={() => {
                     setIsOpenQr(!isOpenQr)
                 }}>Qr-Code Generator
@@ -303,6 +323,28 @@ export default function Administration() {
                         <div dangerouslySetInnerHTML={{__html: responseQr}}/>
                     </div>}
             </div>
+            {userData?.role == "admin" &&
+            <div className={"flex rounded-xl text-2xl border-2 w-96 text-center border-amber-800 px-10 py-4 flex-col"}>
+                <div className={"cursor-pointer"} onClick={() => {
+                    setIsOpenRole(!isOpenRole)
+                }}>Change user role
+                </div>
+                {isOpenRole &&
+                    <div className={"flex space-y-4 mt-4 flex-col"}>
+                        <input placeholder={"passport number"} className={"px-4 py-2 rounded-md bg-slate-700"}
+                               value={passportQr} onChange={e => {
+                            setPassportQr(e.target.value)
+                        }}/>
+                        <select  className={"px-4 py-2 rounded-md bg-slate-700"} onChange={(e)=>{setRole(e.target.value)}}>
+                            <option value={"user"}>User</option>
+                            <option value={"staff"}>Staff</option>
+                            <option value={"admin"}>Admin</option>
+                        </select>
+                        <button className={"border-amber-800 rounded-2xl self-center px-4 py-2 border-2 bg-neutral-800"}
+                                onClick={handleChangeRole}>Change Role
+                        </button>
+                    </div>}
+            </div>}
             {userData?.role == "admin" &&
                 <div style={{width: 1100}}
                      className={"flex text-2xl mt-5 rounded-xl border-2 border-amber-800 px-10 py-4 items-center flex-col"}>

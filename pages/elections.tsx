@@ -32,9 +32,11 @@ export default function Elections() {
     const filterElections = () => {
         setElectionsFiltered([])
         if(filter.name!=""){
+            //порівняння імені, яке ввів користувач з іменами наявних голосувань
             setElectionsFilteredName(electionsResp.filter(election => election.name.toLowerCase().includes(filter.name.toLowerCase())))
         } else setElectionsFilteredName(electionsResp)
         if(filter.beginning!=""&&filter.end!=""){
+            //порівняння часових рамок, які ввів користувач, з голосуваннями, активність яких всередині цих рамок
             setElectionsFilteredTime(electionsResp.filter(election => {
                 const isBeginningBefore = new Date(election.beginning) < new Date(filter.beginning);
                 const isEndAfter = new Date(election.end) > new Date(filter.end);
@@ -42,11 +44,16 @@ export default function Elections() {
             }))
         }else setElectionsFilteredTime(electionsResp)
         if(filter.city!=""){
-            setElectionsFilteredCity(electionsResp.filter(election => election.city.includes(filter.city)))
+            //порівняння міста, яке ввів користувач з містами наявних голосувань
+            setElectionsFilteredCity(electionsResp.filter(election => election.city?.includes(filter.city)))
         }else setElectionsFilteredCity(electionsResp)
         if(filter.type!=""){
+            //порівняння типу, який ввів користувач з типами наявних голосувань
             setElectionsFilteredType(electionsResp.filter(election => election.type.includes(filter.type)))
         }else setElectionsFilteredType(electionsResp)
+        //отримання повного списку відфільтрованих виборів
+
+        console.log(electionsFilteredTime)
         electionsResp.forEach(el=>{
             let cnt = 0;
             electionsFilteredCity.forEach(el1=>{if(el1._id==el._id)cnt++})
